@@ -1,17 +1,7 @@
-import React, { createContext, useState } from "react";
-export const HomeContext = createContext(null);
+import React from "react";
 
-const Home = (data) => {
-  const [homeContextValue, setHomeContextValue] = useState(
-    "Initial Home Context Value"
-  );
-  console.log(data);
-  //   setHomeContextValue(homeContext);
-  return (
-    <HomeContext.Provider value={homeContextValue}>
-      {data.children}
-    </HomeContext.Provider>
-  );
+const Home = () => {
+  return <div>this is Home Page</div>;
 };
 
 export default Home;

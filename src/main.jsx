@@ -8,7 +8,7 @@ import Root from "./component/root/Root.jsx";
 import Home from "./component/Home/Home.jsx";
 import Login from "./component/Login/Login.jsx";
 import Signup from "./component/Signup/Signup.jsx";
-import InsideHome from "./component/insidehome/InsideHome.jsx";
+import AuthProvider from "./component/AuthProvider/AuthProvider.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -16,12 +16,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: (
-          <Home>
-            {/* <div>how are you?</div> */}
-            <InsideHome></InsideHome>
-          </Home>
-        ),
+        element: <Home></Home>,
       },
       {
         path: "/login",
@@ -37,8 +32,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router}>
-      <Root></Root>
-    </RouterProvider>
+    <AuthProvider>
+      <RouterProvider router={router}></RouterProvider>
+    </AuthProvider>
   </StrictMode>
 );
