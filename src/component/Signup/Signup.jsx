@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const Signup = () => {
+  const { SignInUser } = useContext(AuthContext);
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle signup logic here
@@ -14,6 +16,7 @@ const Signup = () => {
       return;
     }
     console.log(name, email, password);
+    SignInUser(email, password);
   };
   return (
     <div className="min-h-screen flex items-center justify-center bg-base-200 p-6">
