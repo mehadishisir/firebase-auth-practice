@@ -2,28 +2,27 @@ import { createContext, useState } from "react";
 import { auth } from "../../firebase.init";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 export const AuthContext = createContext(null);
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const AuthProvider = ({ children }) => {
   const [user, SetUser] = useState(null);
   // console.log(children);
   const SignInUser = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        console.log(user);
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-        // ..
-      });
+    return createUserWithEmailAndPassword(auth, email, password).then(
+      (result) => {
+        console.log(result.user);
+      }
+    );
+  };
+  const logInUser = (email, password) => {
+    return signInWithEmailAndPassword(auth, email, password).then((result) => {
+      console.log(result.user);
+    });
   };
   const userInfo = {
     user,
     SignInUser,
+    logInUser,
   };
 
   return (
