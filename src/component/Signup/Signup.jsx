@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const Signup = () => {
+  const [error, setError] = useState("");
   const { SignInUser } = useContext(AuthContext);
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -12,9 +13,18 @@ const Signup = () => {
     const confirmPassword = e.target.confirmPassword.value;
 
     if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+      setError("Passwords do not match");
       return;
     }
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters long");
+      return;
+    }
+    if (!/^(?=.*[A-Za-z])(?=.*\d).{6,}$/.test(password)) {
+      setError("Password must contain at least one letter and one number");
+      return;
+    }
+    setError("");
     console.log(name, email, password);
     SignInUser(email, password);
   };
@@ -35,7 +45,6 @@ const Signup = () => {
               className="input input-bordered w-full"
             />
           </div>
-
           <div className="form-control">
             <label className="label">
               <span className="label-text">Email</span>
@@ -47,7 +56,6 @@ const Signup = () => {
               className="input input-bordered w-full"
             />
           </div>
-
           <div className="form-control">
             <label className="label">
               <span className="label-text">Password</span>
@@ -59,7 +67,6 @@ const Signup = () => {
               className="input input-bordered w-full"
             />
           </div>
-
           <div className="form-control">
             <label className="label">
               <span className="label-text">Confirm Password</span>
@@ -71,7 +78,7 @@ const Signup = () => {
               className="input input-bordered w-full"
             />
           </div>
-
+          {error && <p className="text-red-500">{error}</p>}
           <button type="submit" className="btn btn-success w-full mt-2">
             Sign Up
           </button>
